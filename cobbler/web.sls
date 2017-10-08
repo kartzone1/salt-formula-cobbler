@@ -1,6 +1,6 @@
 {% from "cobbler/map.jinja" import cobbler_map with context %}
 
-{% for selinux_bool in cobbler_map.selinux.web %}
+{% for selinux_bool in cobbler_map.web.selinux %}
 cobbler-{{ selinux_bool }}:
   selinux.boolean:
     - name: {{ selinux_bool }}
@@ -13,7 +13,7 @@ cobbler-web:
     - name: cobbler-web
     - refresh: True
     - require:
-{% for selinux_bool in cobbler_map.selinux.web %}
+{% for selinux_bool in cobbler_map.web.selinux %}
       - selinux: cobbler-{{ selinux_bool }}
 {% endfor%}
 
