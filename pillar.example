@@ -16,6 +16,11 @@ cobbler:
       - tftp
       - python-augeas
       - python-libs
+  templates:
+    dhcp: True
+    tftpd: True
+    named: False
+    dnsmasq: False
   selinux:
     - cobbler_can_network_connect
   auth:
