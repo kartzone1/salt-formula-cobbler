@@ -3,19 +3,22 @@
 # WARNING: This file is managed by Salt Stack AND Cobbler.
 #
 
-{% for option in dhcpd_settings.config %}
+# options
+{%- for option in dhcpd_settings.config %}
 {{ option }}
-{% endfor %}
+{%- endfor %}
 
-{% for subnet_name, subnet_config in dhcpd_settings.subnets.items() %}
-{% if 'netaddress' in subnet_config and 'netmask' in subnet_config %}
+# subnets
+{%- if 'subnets' in dhcpd_settings %}
+{%- for subnet_name, subnet_config in dhcpd_settings.subnets.items() %}
+{%- if 'netaddress' in subnet_config and 'netmask' in subnet_config %}
 # {{ subnet_name }}
 subnet {{ subnet_config.netaddress }} netmask {{ subnet_config.netmask }} {
-{% if 'options' in subnet_config %}
-{% for option in subnet_config.options %}
+{%- if 'options' in subnet_config %}
+{%- for option in subnet_config.options %}
     {{ option }};
-{% endfor %}
-{% endif %}
+{%- endfor %}
+{%- endif %}
 
     class "pxeclients" {
         match if substring (option vendor-class-identifier, 0, 9) = "PXEClient";
@@ -32,8 +35,9 @@ subnet {{ subnet_config.netaddress }} netmask {{ subnet_config.netmask }} {
         }
     }
 }
-{% endif %}
-{% endfor %}
+{%- endif %}
+{%- endfor %}
+{%- endif %}
 
 #for dhcp_tag in $dhcp_tags.keys():
     ## group could be subnet if your dhcp tags line up with your subnets
