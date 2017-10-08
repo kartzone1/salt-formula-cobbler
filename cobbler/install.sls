@@ -25,7 +25,7 @@ service-cobbler:
     - require:
       - pkg: cobbler-deps
 
-{% for selinux_bool in cobbler_map.selinux.cobbler %}
+{% for selinux_bool in cobbler_map.selinux %}
       - selinux: cobbler-{{ selinux_bool }}
 {% endfor%}
 
@@ -111,6 +111,19 @@ cobbler-dnsmasq-config:
     - template: jinja
     - context:
       dnsmasq_settings: {{ cobbler_map.dnsmasq }}
+    - user: root
+    - group: root
+    - mode: 0644
+  require:
+    - pkg: cobbler
+
+cobbler-dhcpd-config:
+  file.managed:
+    - source: salt://cobbler/files/dhcp.template
+    - name: /etc/cobbler/dhcp.template
+    - template: jinja
+    - context:
+      dnsmasq_settings: {{ cobbler_map.dhcpd }}
     - user: root
     - group: root
     - mode: 0644
