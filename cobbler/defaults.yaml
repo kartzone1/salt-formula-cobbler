@@ -16,6 +16,11 @@ cobbler:
     dns: manage_bind
     dhcp: manage_isc
     tftpd: manage_in_tftpd
+  templates:
+    dnsmasq: False
+    dhcp: False
+    named: False
+    tftp: False
   mongodb:
     connection:
       host: localhost

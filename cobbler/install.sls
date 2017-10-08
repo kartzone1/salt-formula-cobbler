@@ -103,6 +103,7 @@ cobbler-mongodb-config:
     - pkg: cobbler
 {% endif %}
 
+{% if cobbler_map.templates.dnsmasq == True %}
 cobbler-dnsmasq-config:
   file.managed:
     - source: salt://cobbler/files/dnsmasq.template
@@ -115,8 +116,10 @@ cobbler-dnsmasq-config:
     - mode: 0644
   require:
     - pkg: cobbler
+{% endif %}
 
-cobbler-dhcpd-config:
+{% if cobbler_map.templates.dhcp == True %}
+cobbler-dhcp-config:
   file.managed:
     - source: salt://cobbler/files/dhcp.template
     - name: /etc/cobbler/dhcp.template
@@ -128,10 +131,27 @@ cobbler-dhcpd-config:
     - mode: 0644
   require:
     - pkg: cobbler
+{% endif %}
+
+{% if cobbler_map.templates.named == True %}
+cobbler-named-config:
+  file.managed:
+    - source: salt://cobbler/files/named.template
+    - name: /etc/cobbler/named.template
+    - template: jinja
+    - context:
+      named_settings: {{ cobbler_map.named }}
+    - user: root
+    - group: root
+    - mode: 0644
+  require:
+    - pkg: cobbler
+{% endif %}
 
 {{ cobbler_map.lookup.tftpboot }}:
   file.directory
 
+{% if cobbler_map.templates.tftpd == True %}
 cobbler-tftpd-config:
   file.managed:
     - source: salt://cobbler/files/tftpd.template
@@ -145,6 +165,7 @@ cobbler-tftpd-config:
     - require:
       - pkg: cobbler
       - file: {{ cobbler_map.lookup.tftpboot }}
+{% endif %}
 
 kickstarts:
   file.recurse:
