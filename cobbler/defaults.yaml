@@ -1,22 +1,4 @@
 cobbler:
-  lookup:
-    tftpboot: /var/lib/tftpboot
-    pkgs:
-      - dnsmasq
-      - rsync
-      - syslinux
-      - syslinux-tftpboot
-      - pykickstart
-      - fence-agents
-      - xinetd
-      - genisoimage
-      - yum-utils
-      - qemu
-      - virt-install
-      - tftp-server
-      - tftp
-      - python-augeas
-      - python-libs
   selinux:
     - cobbler_can_network_connect
   auth:
@@ -55,6 +37,7 @@ cobbler:
       - 'ignore client-updates'
       - 'set vendorclass = option vendor-class-identifier'
       - 'option pxe-system-type code 93 = unsigned integer 16'
+    dhcpd:
   dnsmasq:
     conf-dir: /etc/dnsmasq.d
   settings:
