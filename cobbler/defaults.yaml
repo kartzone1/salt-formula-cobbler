@@ -20,7 +20,7 @@ cobbler:
     dnsmasq: False
     dhcp: False
     named: False
-    tftp: False
+    tftpd: False
   mongodb:
     connection:
       host: localhost
