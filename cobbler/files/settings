@@ -1,0 +1,9 @@
+# /etc/cobbler/settings
+#
+# WARNING: This file is managed by Salt Stack. Fix the state not the file.
+#
+
+{{ cobbler_settings|yaml(False) }}
+
+# EOF
+

@@ -1,0 +1,30 @@
+# /etc/cobbler/dnsmasq.template
+#
+# WARNING: This file is managed by Salt Stack. Fix the state not the file.
+#
+
+read-ethers
+addn-hosts = /var/lib/cobbler/cobbler_hosts
+
+dhcp-option=3,$next_server
+dhcp-lease-max=1000
+dhcp-authoritative
+
+pxe-prompt="Press F8 for boot menu", 3
+
+pxe-service=X86-64_EFI, "Boot PXELinux (=Cobbler controlled)", grub/grub-x86_64.efi , $next_server
+pxe-service=IA32_EFI, "Boot PXELinux (=Cobbler controlled)", grub/grub-x86.efi , $next_server
+pxe-service=x86PC, "Boot PXELinux (=Cobbler controlled)", pxelinux , $next_server
+
+{%- for name, value in dnsmasq_settings.items() %}
+{%- if value != '' %}
+{{ name }}={{ value }}
+{%- else %}
+{{ name }}
+{%- endif %}
+{%- endfor %}
+
+$insert_cobbler_system_definitions
+
+# EOF
+

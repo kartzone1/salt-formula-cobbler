@@ -1,0 +1,14 @@
+# default: on
+# description: The tftp server serves files using the trivial file transfer \
+#       protocol.  The tftp protocol is often used to boot diskless \
+#       workstations, download configuration files to network-aware printers, \
+#       and to start the installation process for some operating systems.
+#
+# WARNING: This file is managed by Salt Stack. Fix the state not the file.
+#
+service tftp
+{
+{%- for name, value in tftpd_settings.items() %}
+        {{ name }} = {{ value }}
+{%- endfor %}
+}
