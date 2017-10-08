@@ -8,11 +8,14 @@
 {% endfor %}
 
 {% for subnet_name, subnet_config in dhcpd_settings.subnets.items() %}
+{% if 'netaddress' in subnet_config and 'netmask' in subnet_config %}
 # {{ subnet_name }}
 subnet {{ subnet_config.netaddress }} netmask {{ subnet_config.netmask }} {
+{% if 'options' in subnet_config %}
 {% for option in subnet_config.options %}
     {{ option }};
 {% endfor %}
+{% endif %}
 
     class "pxeclients" {
         match if substring (option vendor-class-identifier, 0, 9) = "PXEClient";
@@ -29,6 +32,7 @@ subnet {{ subnet_config.netaddress }} netmask {{ subnet_config.netmask }} {
         }
     }
 }
+{% endif %}
 {% endfor %}
 
 #for dhcp_tag in $dhcp_tags.keys():
