@@ -13,6 +13,7 @@ cobbler-repo:
     - require_in:
       - pkg: cobbler
 {% else %}
+{# Fedora/RHEL/CentOS/SLE/ScientificLinux/openSUSE #}
 repo-cobbler:
   pkgrepo.managed:
     - name: cobbler

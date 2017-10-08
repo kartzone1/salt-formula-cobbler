@@ -17,8 +17,27 @@
       'tftp',
       'python-augeas',
       'python-libs'],
+    'tftpboot': '/var/lib/tftpboot',
   },
-}, grain='os', default='default', merge=salt['pillar.get']('cobbler:lookup', {}))
+  'Debian': {
+    'pkgs': ['dnsmasq',
+      'rsync',
+      'syslinux',
+      'syslinux-tftpboot',
+      'pykickstart',
+      'fence-agents-all',
+      'xinetd',
+      'genisoimage',
+      'yum-utils',
+      'qemu',
+      'virt-install',
+      'tftp-server',
+      'tftp',
+      'python-augeas',
+      'python-libs'],
+    'tftpboot': '/tftpboot',
+  },
+}, grain='os_family', default='default', merge=salt['pillar.get']('cobbler:lookup', {}))
 %}
 
 {% do default_settings.cobbler.update(os_family_map) %}

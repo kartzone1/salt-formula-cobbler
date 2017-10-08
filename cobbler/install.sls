@@ -2,9 +2,9 @@
 
 cobbler-deps:
   pkg.installed:
-    - pkgs: {{ cobbler_map['pkgs']|json }}
+    - pkgs: {{ cobbler_map.lookup['pkgs']|json }}
 
-{% for selinux_bool in cobbler_map.selinux.cobbler %}
+{% for selinux_bool in cobbler_map.selinux %}
 cobbler-{{ selinux_bool }}:
   selinux.boolean:
     - name: {{ selinux_bool }}
@@ -15,30 +15,19 @@ cobbler-{{ selinux_bool }}:
 cobbler:
   pkg.installed:
     - refresh: True
+    - require:
+      - pkg: cobbler-deps
+
+service-cobbler:
   service.running:
     - name: cobblerd
     - enable: True
     - require:
+      - pkg: cobbler-deps
+
 {% for selinux_bool in cobbler_map.selinux.cobbler %}
       - selinux: cobbler-{{ selinux_bool }}
 {% endfor%}
-
-{% if grains['os'] == 'Ubuntu' %}
-/tftpboot:
-{% else %}
-/var/lib/tftpboot:
-{% endif %}
-  file.directory
-
-{% if grains['os'] == 'Ubuntu' %}
-{% if grains['osrelease_info'][0] <= 12  %}
-/usr/share/cobbler/web/cobbler_web/urls.py:
-  file.replace:
-    - pattern: "from django.conf.urls import patterns"
-    - repl: "from django.conf.urls.defaults import *"
-{% endif %}
-{% endif %}
-{% from "cobbler/map.jinja" import cobbler_map with context %}
 
 {% if cobbler_map.settings != {} %}
 cobbler-settings-config:
@@ -128,6 +117,9 @@ cobbler-dnsmasq-config:
   require:
     - pkg: cobbler
 
+{{ cobbler_map.lookup.tftpboot }}
+  file.directory
+
 cobbler-tftpd-config:
   file.managed:
     - source: salt://cobbler/files/tftpd.template
@@ -138,8 +130,9 @@ cobbler-tftpd-config:
     - user: root
     - group: root
     - mode: 0644
-  require:
-    - pkg: cobbler
+    - require:
+      - pkg: cobbler
+      - file: {{ cobbler_map.lookup.tftpboot }}
 
 kickstarts:
   file.recurse:

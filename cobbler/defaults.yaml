@@ -1,5 +1,6 @@
 cobbler:
   lookup:
+    tftpboot: /var/lib/tftpboot
     pkgs:
       - dnsmasq
       - rsync
@@ -16,6 +17,8 @@ cobbler:
       - tftp
       - python-augeas
       - python-libs
+  selinux:
+    - cobbler_can_network_connect
   auth:
     xmlrpc_service_users:
       admin: DISABLED
@@ -44,6 +47,14 @@ cobbler:
     per_source: 11
     cps: 100 2
     flags: IPv4
+  dhcpd:
+    config:
+      - 'ddns-update-style interim'
+      - 'allow booting'
+      - 'allow bootp'
+      - 'ignore client-updates'
+      - 'set vendorclass = option vendor-class-identifier'
+      - 'option pxe-system-type code 93 = unsigned integer 16'
   dnsmasq:
     conf-dir: /etc/dnsmasq.d
   settings:
