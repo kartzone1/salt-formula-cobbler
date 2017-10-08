@@ -1,4 +1,10 @@
 cobbler:
+  lookup:
+    pkgs:
+      - rsync
+      - syslinux
+      - syslinux-tftpboot
+    tftpboot: /var/lib/tftpboot
   selinux:
     - cobbler_can_network_connect
   auth:
