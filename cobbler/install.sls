@@ -129,7 +129,7 @@ cobbler-dhcpd-config:
   require:
     - pkg: cobbler
 
-{{ cobbler_map.lookup.tftpboot }}
+{{ cobbler_map.lookup.tftpboot }}:
   file.directory
 
 cobbler-tftpd-config:
