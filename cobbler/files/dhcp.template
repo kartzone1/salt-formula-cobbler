@@ -3,11 +3,11 @@
 # WARNING: This file is managed by Salt Stack AND Cobbler.
 #
 
-{% for option in dhcpd_config.config %}
+{% for option in dhcpd_settings.config %}
 {{ option }}
 {% endfor %}
 
-{% for subnet_name, subnet_config in dhcpd_config.subnets %}
+{% for subnet_name, subnet_config in dhcpd_settings.subnets %}
 # {{ subnet_name }}
 subnet {
 }

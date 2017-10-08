@@ -24,7 +24,6 @@ service-cobbler:
     - enable: True
     - require:
       - pkg: cobbler-deps
-
 {% for selinux_bool in cobbler_map.selinux %}
       - selinux: cobbler-{{ selinux_bool }}
 {% endfor%}
@@ -123,7 +122,7 @@ cobbler-dhcpd-config:
     - name: /etc/cobbler/dhcp.template
     - template: jinja
     - context:
-      dnsmasq_settings: {{ cobbler_map.dhcpd }}
+      dhcpd_settings: {{ cobbler_map.dhcpd }}
     - user: root
     - group: root
     - mode: 0644
