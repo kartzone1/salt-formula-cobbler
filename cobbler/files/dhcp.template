@@ -7,7 +7,7 @@
 {{ option }}
 {% endfor %}
 
-{% for subnet_name, subnet_config in dhcpd_settings.subnets %}
+{% for subnet_name, subnet_config in dhcpd_settings.subnets.items() %}
 # {{ subnet_name }}
 subnet {{ subnet_config.netaddress }} netmask {{ subnet_config.netmask }} {
 {% for option in subnet_config.options %}
