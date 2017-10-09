@@ -169,7 +169,8 @@ cobbler sync:
       - file: cobbler-modules-config
 {% endif %}
 {% if cobbler_map.users != {} %}
-      - file: {% endif %}
+      - file: cobbler-users-config
+{% endif %}
 {% if cobbler_map.auth != {} %}
       - file: cobbler-auth-config
 {% endif %}
