@@ -19,7 +19,7 @@
       'python-libs'],
     'tftpboot': '/var/lib/tftpboot',
     'etc_dir': '/etc/cobbler',
-    'lib_dir: '/var/lib/cobbler'
+    'lib_dir': '/var/lib/cobbler'
   },
   'Debian': {
     'pkgs': ['dnsmasq',
@@ -39,7 +39,7 @@
       'python-libs'],
     'tftpboot': '/tftpboot',
     'etc_dir': '/etc/cobbler',
-    'lib_dir: '/var/lib/cobbler'
+    'lib_dir': '/var/lib/cobbler'
   },
 }, grain='os_family', default='default', merge=salt['pillar.get']('cobbler:lookup', {}))
 %}
