@@ -1,5 +1,6 @@
 {% from "cobbler/map.jinja" import cobbler_map with context %}
 
+{% if 'repo' in cobbler_map %}
 {% for repo_name, repo_config in cobbler_map.repo.items() %}
 {% if 'name' in repo_config %}
 {% set repo_name = repo_config.name %}
@@ -13,3 +14,4 @@ cobbler-repo-add-{{ repo_name }}:
     - service: cobblerd
 {% endif %}
 {% endfor %}
+{% endif %}
