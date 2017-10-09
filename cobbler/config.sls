@@ -145,7 +145,7 @@ cobbler-named-config:
 {{ cobbler_map.lookup.tftpboot }}:
   file.directory
 
-{% if cobbler_map.tftpd.use_xinetd == True }
+{% if cobbler_map.tftpd.use_xinetd == True %}
 cobbler-tftpd-config:
   file.managed:
     - source: {{ cobbler_map.tftpd.template }}
