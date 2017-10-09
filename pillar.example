@@ -63,6 +63,11 @@ cobbler:
     flags: IPv4
   dnsmasq:
     conf-dir: /etc/dnsmasq.d
+  web:
+    enable: True
+    selinux:
+      - httpd_can_network_connect_cobbler
+      - httpd_serve_cobbler_files
   settings:
     allow_duplicate_hostnames: 0
     allow_duplicate_ips: 0

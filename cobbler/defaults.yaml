@@ -55,6 +55,8 @@ cobbler:
       - 'option pxe-system-type code 93 = unsigned integer 16'
   dnsmasq:
     conf-dir: /etc/dnsmasq.d
+  web:
+    enable: False
   settings:
     allow_duplicate_hostnames: 0
     allow_duplicate_ips: 0
