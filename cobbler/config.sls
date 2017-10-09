@@ -171,21 +171,21 @@ cobbler sync:
 {% if cobbler_map.users != {} %}
       - file: {% endif %}
 {% if cobbler_map.auth != {} %}
-      - file: cobbler-auth-config:
+      - file: cobbler-auth-config
 {% endif %}
 {% if cobbler_map.mongodb != {} %}
-      - file: cobbler-mongodb-config:
+      - file: cobbler-mongodb-config
 {% endif %}
 {% if cobbler_map.templates.dnsmasq == True %}
-      - file: cobbler-dnsmasq-config:
+      - file: cobbler-dnsmasq-config
 {% endif %}
 {% if cobbler_map.templates.dhcp == True %}
-      - file: cobbler-dhcp-config:
+      - file: cobbler-dhcp-config
 {% endif %}
 {% if cobbler_map.templates.named == True %}
-      - file: cobbler-named-config:
+      - file: cobbler-named-config
 {% endif %}
 {% if cobbler_map.templates.tftpd == True %}
-      - file: cobbler-tftpd-config:
+      - file: cobbler-tftpd-config
 {% endif %}
 {% endif %}
