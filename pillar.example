@@ -23,6 +23,10 @@ cobbler:
     dnsmasq: False
   selinux:
     - cobbler_can_network_connect
+  repo:
+    blah:
+      name: exmaple_repo
+      breed: yum
   reposync:
     options: '--tries=1'
     sync_all: False

@@ -1,6 +1,6 @@
 {% from "cobbler/map.jinja" import cobbler_map with context %}
 
-{% for repo_name, repo_config in cobbler_map.deploy.items() %}
+{% for repo_name, repo_config in cobbler_map.repo.items() %}
 {% if 'name' in repo_config %}
 {% set repo_name = repo_config.name %}
 {% endif %}
