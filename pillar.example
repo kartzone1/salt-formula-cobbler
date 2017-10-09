@@ -27,6 +27,7 @@ cobbler:
     blah:
       name: exmaple_repo
       breed: yum
+      mirror: https://blah.blah/rep
   reposync:
     options: '--tries=1'
     sync_all: False

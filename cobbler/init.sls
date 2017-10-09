@@ -1,3 +1,3 @@
 include:
-  - cobbler/repo
   - cobbler/install
+  - cobbler/config
