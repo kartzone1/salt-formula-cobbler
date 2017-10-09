@@ -1,0 +1,2 @@
+cobbler sync:
+  cmd.run

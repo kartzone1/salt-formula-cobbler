@@ -1,37 +1,15 @@
-{% if grains['os_family'] == 'Debian' %}
-cobbler-repo:
-  pkgrepo.managed:
-    - humanname: Cobbler Repo
-    {% if grains['os'] == 'Ubuntu' %}
-    - name: "deb http://download.opensuse.org/repositories/home:/libertas-ict:/cobbler28/x{{ grains['os'] }}_{{ grains['osrelease'] }} ./"
-    {% else %}
-    - name: "deb http://download.opensuse.org/repositories/home:/libertas-ict:/cobbler28/{{ grains['os'] }}_{{ grains['osrelease'] }} ./"
-    {% endif %}
-    - dist: ./
-    - file: /etc/apt/sources.list.d/cobbler.list
-    - key_url: salt://cobbler/files/Release.key
-    - require_in:
-      - pkg: cobbler
-{% else %}
-{# Fedora/RHEL/CentOS/SLE/ScientificLinux/openSUSE #}
-repo-cobbler:
-  pkgrepo.managed:
-    - name: cobbler
-    - humanname: cobbler
-    - baseurl: http://download.opensuse.org/repositories/home:/libertas-ict:/cobbler28/{{ grains['os'] }}_{{ grains['osmajorrelease'] }}/
-    - gpgcheck: 1
-    - key_url: file:///etc/pki/rpm-gpg/libertas-ict.pub
+{% from "cobbler/map.jinja" import cobbler_map with context %}
 
-repo-cobbler-key:
-  file.managed:
-    - name: /etc/pki/rpm-gpg/libertas-ict.pub
-    - source: salt://cobbler/files/libertas-ict.pub
-    - user: root
-    - group: root
-    - mode: 0644
-
-rpm --import /etc/pki/rpm-gpg/libertas-ict.pub:
-  cmd.run:
-    - onchanges:
-      - file: repo-cobbler-key
+{% for repo_name, repo_config in cobbler_map.deploy.items() %}
+{% if 'name' in repo_config %}
+{% set repo_name = repo_config.name %}
 {% endif %}
+{% if 'options' in repo_config %}
+cobbler-repo-add-{{ repo_name }}:
+  cmd.run:
+    - name: cobbler repo add --name={{ repo_name }} {%- for option_name, option_value in repo_config.options.items() %}--{{ option_name }}={{ option_value }} {% endfor %}
+    - creates: {{ cobbler_map.lookup.lib_dir }}/config/repos.d/{{ repo_name }}.json
+  require:
+    - service: cobblerd
+{% endif %}
+{% endfor %}
