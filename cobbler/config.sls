@@ -159,3 +159,33 @@ cobbler-tftpd-config:
       - pkg: cobbler
       - file: {{ cobbler_map.lookup.tftpboot }}
 {% endif %}
+
+{% if cobbler_map.settings != {} %}
+cobbler sync:
+  cmd.run:
+    - onchanges:
+      - file: cobbler-settings-config
+{% if cobbler_map.modules != {} %}
+      - file: cobbler-modules-config
+{% endif %}
+{% if cobbler_map.users != {} %}
+      - file: {% endif %}
+{% if cobbler_map.auth != {} %}
+      - file: cobbler-auth-config:
+{% endif %}
+{% if cobbler_map.mongodb != {} %}
+      - file: cobbler-mongodb-config:
+{% endif %}
+{% if cobbler_map.templates.dnsmasq == True %}
+      - file: cobbler-dnsmasq-config:
+{% endif %}
+{% if cobbler_map.templates.dhcp == True %}
+      - file: cobbler-dhcp-config:
+{% endif %}
+{% if cobbler_map.templates.named == True %}
+      - file: cobbler-named-config:
+{% endif %}
+{% if cobbler_map.templates.tftpd == True %}
+      - file: cobbler-tftpd-config:
+{% endif %}
+{% endif %}
