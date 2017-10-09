@@ -61,6 +61,9 @@ cobbler:
       per_source: 11
       cps: 100 2
       flags: IPv4
+    tftpboot_content:
+      manage: False
+      sources:
   dhcp:
     manage: False
     template: salt://cobbler/files/dhcp.template
