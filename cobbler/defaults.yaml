@@ -21,11 +21,18 @@ cobbler:
     dns: manage_bind
     dhcp: manage_isc
     tftpd: manage_in_tftpd
-  templates:
-    dnsmasq: False
-    dhcp: False
-    named: False
-    tftpd: False
+  pxe:
+    manage: True
+    sources:
+      - salt://cobbler/files/pxe
+  kickstarts:
+    manage: True
+    sources:
+      - salt://cobbler/files/kickstarts
+  snippets:
+    manage: True
+    sources:
+      - salt://cobbler/files/snippets
   mongodb:
     connection:
       host: localhost
@@ -34,27 +41,42 @@ cobbler:
     admins:
       admin: ""
       cobbler: ""
+  named:
+    manage: False
+    template: salt://cobbler/files/named.template
+    settings:
   tftpd:
-    socket_type: dgram
-    protocol: udp
-    wait: 'yes'
-    user: root
-    server: /usr/sbin/in.tftpd
-    server_args: -s /var/lib/tftpboot
-    disable: 'yes'
-    per_source: 11
-    cps: 100 2
-    flags: IPv4
-  dhcpd:
-    config:
-      - 'ddns-update-style interim'
-      - 'allow booting'
-      - 'allow bootp'
-      - 'ignore client-updates'
-      - 'set vendorclass = option vendor-class-identifier'
-      - 'option pxe-system-type code 93 = unsigned integer 16'
+    manage: False
+    template: salt://cobbler/files/tftpd.template
+    use_xinetd: False
+    use_systemctl_service: True
+    xinetd_settings:
+      socket_type: dgram
+      protocol: udp
+      wait: 'yes'
+      user: root
+      server: /usr/sbin/in.tftpd
+      server_args: -s /var/lib/tftpboot
+      disable: 'no'
+      per_source: 11
+      cps: 100 2
+      flags: IPv4
+  dhcp:
+    manage: False
+    template: salt://cobbler/files/dhcp.template
+    settings:
+      config:
+        - 'ddns-update-style interim'
+        - 'allow booting'
+        - 'allow bootp'
+        - 'ignore client-updates'
+        - 'set vendorclass = option vendor-class-identifier'
+        - 'option pxe-system-type code 93 = unsigned integer 16'
   dnsmasq:
-    conf-dir: /etc/dnsmasq.d
+    manage: False
+    template: salt://cobbler/files/dnsmasq.template
+    settings:
+      conf-dir: /etc/dnsmasq.d
   web:
     enable: False
   settings:

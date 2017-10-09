@@ -1,0 +1,21 @@
+DEFAULT menu
+PROMPT 0
+MENU TITLE Routed Logic PXE Boot Options
+TIMEOUT 200
+TOTALTIMEOUT 6000
+ONTIMEOUT $pxe_timeout_profile
+
+LABEL local
+        MENU LABEL (local)
+        MENU DEFAULT
+        LOCALBOOT -1
+
+$pxe_menu_items
+
+LABEL Install Windows 10
+        MENU LABEL Install Windows 10
+        KERNEL /memdisk
+        INITRD winpe.iso
+        APPEND iso raw
+
+MENU end

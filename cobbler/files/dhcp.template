@@ -36,9 +36,9 @@ subnet {{ subnet_config.netaddress }} netmask {{ subnet_config.netmask }} {
     }
 }
 {%- endif %}
+
 {%- endfor %}
 {%- endif %}
-
 
 #for dhcp_tag in $dhcp_tags.keys():
     ## group could be subnet if your dhcp tags line up with your subnets

@@ -48,6 +48,10 @@ Configures repos based on pillar.
 -----------
 Runs 'cobbler reposync --only=repo-name' for repos listed in pillar.
 
+``cobbler.pxe``
+-----------
+Imports pxe files from sources based on pillar
+
 ``cobbler.kickstarts``
 -----------
 Imports kickstart files from sources based on pillar

@@ -96,14 +96,14 @@ cobbler-mongodb-config:
     - pkg: cobbler
 {% endif %}
 
-{% if cobbler_map.templates.dnsmasq == True %}
+{% if cobbler_map.dnsmasq.manage == True %}
 cobbler-dnsmasq-config:
   file.managed:
-    - source: salt://cobbler/files/dnsmasq.template
+    - source: {{ cobbler_map.dnsmasq.template }}
     - name: {{ cobbler_map.lookup.etc_dir }}/dnsmasq.template
     - template: jinja
     - context:
-      dnsmasq_settings: {{ cobbler_map.dnsmasq }}
+      dnsmasq_settings: {{ cobbler_map.dnsmasq.settings }}
     - user: root
     - group: root
     - mode: 0644
@@ -111,14 +111,14 @@ cobbler-dnsmasq-config:
     - pkg: cobbler
 {% endif %}
 
-{% if cobbler_map.templates.dhcp == True %}
+{% if cobbler_map.dhcp.manage == True %}
 cobbler-dhcp-config:
   file.managed:
-    - source: salt://cobbler/files/dhcp.template
+    - source: {{ cobbler_map.dhcp.template }}
     - name: {{ cobbler_map.lookup.etc_dir }}/dhcp.template
     - template: jinja
     - context:
-      dhcpd_settings: {{ cobbler_map.dhcpd }}
+      dhcpd_settings: {{ cobbler_map.dhcp.settings }}
     - user: root
     - group: root
     - mode: 0644
@@ -126,14 +126,14 @@ cobbler-dhcp-config:
     - pkg: cobbler
 {% endif %}
 
-{% if cobbler_map.templates.named == True %}
+{% if cobbler_map.named.manage == True %}
 cobbler-named-config:
   file.managed:
-    - source: salt://cobbler/files/named.template
+    - source: {{ cobbler_map.named.template }}
     - name: {{ cobbler_map.lookup.etc_dir }}/named.template
     - template: jinja
     - context:
-      named_settings: {{ cobbler_map.named }}
+      named_settings: {{ cobbler_map.named.settings }}
     - user: root
     - group: root
     - mode: 0644
@@ -141,16 +141,17 @@ cobbler-named-config:
     - pkg: cobbler
 {% endif %}
 
+{% if cobbler_map.tftpd.manage == True %}
 {{ cobbler_map.lookup.tftpboot }}:
   file.directory
 
-{% if cobbler_map.templates.tftpd == True %}
+{% if cobbler_map.tftpd.use_xinetd == True }
 cobbler-tftpd-config:
   file.managed:
-    - source: salt://cobbler/files/tftpd.template
+    - source: {{ cobbler_map.tftpd.template }}
     - name: {{ cobbler_map.lookup.etc_dir }}/tftpd.template
     - context:
-      tftpd_settings: {{ cobbler_map.tftpd }}
+      tftpd_settings: {{ cobbler_map.tftpd.settings }}
     - template: jinja
     - user: root
     - group: root
@@ -158,6 +159,19 @@ cobbler-tftpd-config:
     - require:
       - pkg: cobbler
       - file: {{ cobbler_map.lookup.tftpboot }}
+
+cobbler-tftpd-service:
+  service.running:
+    - name: xinetd
+    - enable: True
+{% endif %}
+
+{% if cobbler_map.tftpd.use_systemctl_service == True }
+cobbler-tftpd-service:
+  service.running:
+    - name: tftp
+    - enable: True
+{% endif %}
 {% endif %}
 
 {% if cobbler_map.settings != {} %}
