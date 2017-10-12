@@ -166,7 +166,7 @@ cobbler-tftpd-service:
     - enable: True
 {% endif %}
 
-{% if cobbler_map.tftpd.use_systemctl_service == True }
+{% if cobbler_map.tftpd.use_systemctl_service == True %}
 cobbler-tftpd-service:
   service.running:
     - name: tftp
