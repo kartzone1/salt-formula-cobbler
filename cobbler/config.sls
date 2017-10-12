@@ -191,16 +191,16 @@ cobbler sync:
 {% if cobbler_map.mongodb != {} %}
       - file: cobbler-mongodb-config
 {% endif %}
-{% if cobbler_map.templates.dnsmasq == True %}
+{% if cobbler_map.dnsmasq.enable == True %}
       - file: cobbler-dnsmasq-config
 {% endif %}
-{% if cobbler_map.templates.dhcp == True %}
+{% if cobbler_map.dhcp.enable == True %}
       - file: cobbler-dhcp-config
 {% endif %}
-{% if cobbler_map.templates.named == True %}
+{% if cobbler_map.named.enable == True %}
       - file: cobbler-named-config
 {% endif %}
-{% if cobbler_map.templates.tftpd == True %}
+{% if cobbler_map.tftpd.enable == True %}
       - file: cobbler-tftpd-config
 {% endif %}
 {% endif %}
