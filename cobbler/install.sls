@@ -46,9 +46,25 @@ cobbler-deps:
     - require:
       - pkgrepo: cobbler-repo
 
+{% if cobbler_map.dnsmasq.manage == True %}
+dnsmasq:
+  pkg.installed
+{% endif %}
+
+{% if cobbler_map.dhcp.manage == True %}
+dhcp:
+  pkg.installed
+{% endif %}
+
 cobbler:
   pkg.installed:
     - refresh: True
     - require:
       - pkg: cobbler-deps
       - pkgrepo: cobbler-repo
+{% if cobbler_map.dnsmasq.manage == True %}
+      - pkg: dnsmasq
+{% endif %}
+{% if cobbler_map.dhcp.manage == True %}
+      - pkg: dhcp
+{% endif %}
