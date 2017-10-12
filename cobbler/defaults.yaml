@@ -1,12 +1,5 @@
 cobbler:
   lookup:
-    pkgs:
-      - rsync
-      - syslinux
-      - syslinux-tftpboot
-    tftpboot: /var/lib/tftpboot
-    etc_dir: /etc/cobbler
-    lib_dir: /var/lib/cobbler
   selinux:
     - cobbler_can_network_connect
   reposync:
