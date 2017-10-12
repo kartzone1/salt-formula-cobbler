@@ -1,5 +1,24 @@
 cobbler:
   lookup:
+    pkgs:
+      - dnsmasq
+      - rsync
+      - syslinux
+      - syslinux-tftpboot
+      - pykickstart
+      - fence-agents-all
+      - xinetd
+      - genisoimage
+      - yum-utils
+      - qemu
+      - virt-install
+      - tftp-server
+      - tftp
+      - python-augeas
+      - python-libs
+    tftpboot: /var/lib/tftpboot
+    etc_dir: /etc/cobbler
+    lib_dir: /var/lib/cobbler
   selinux:
     - cobbler_can_network_connect
   reposync:
