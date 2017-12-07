@@ -203,6 +203,6 @@ cobbler sync:
 {% if cobbler_map.tftpd.manage == True %}
 {% if cobbler_map.tftpd.use_xinetd == True %}
       - file: cobbler-tftpd-config
-{% endif %}      
+{% endif %}
 {% endif %}
 {% endif %}
