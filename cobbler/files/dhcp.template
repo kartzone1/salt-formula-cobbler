@@ -23,7 +23,7 @@ subnet {{ subnet_config.netaddress }} netmask {{ subnet_config.netmask }} {
 {%- if 'class' in subnet_config %}
 {%- for class_name, class in subnet_config.class.items() %}
     class "{{ class_name }}" {
-        {{ class|json }}
+        {{ class }}
     }
 }
 {%- endfor %}
