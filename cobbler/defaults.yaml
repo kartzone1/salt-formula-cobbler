@@ -1,5 +1,6 @@
 cobbler:
   lookup:
+    use_repo: True
     pkgs:
       - dnsmasq
       - rsync
