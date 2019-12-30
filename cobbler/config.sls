@@ -20,6 +20,12 @@ service-cobbler:
 {% for selinux_bool in cobbler_map.selinux %}
       - selinux: cobbler-{{ selinux_bool }}
 {% endfor%}
+    - watch:
+      - file: cobbler-settings-config
+      - file: cobbler-modules-config
+      - file: cobbler-users-config 
+      - file: cobbler-auth-config
+      - file: cobbler-mongodb-config
 
 {% if cobbler_map.settings != {} %}
 cobbler-settings-config:
