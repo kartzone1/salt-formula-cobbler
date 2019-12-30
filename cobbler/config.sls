@@ -28,7 +28,7 @@ cobbler-settings-config:
     - source: salt://cobbler/files/settings
     - template: jinja
     - context:
-      cobbler_settings: {{ cobbler_map.settings }}
+      cobbler_settings: {{ cobbler_map.settings|tojson }}
     - user: root
     - group: root
     - mode: 0644
@@ -43,7 +43,7 @@ cobbler-modules-config:
     - source: salt://cobbler/files/modules.conf
     - template: jinja
     - context:
-      cobbler_modules: {{ cobbler_map.modules }}
+      cobbler_modules: {{ cobbler_map.modules|tojson }}
     - user: root
     - group: root
     - mode: 0644
@@ -58,7 +58,7 @@ cobbler-users-config:
     - source: salt://cobbler/files/users.conf
     - template: jinja
     - context:
-      cobbler_users: {{ cobbler_map.users }}
+      cobbler_users: {{ cobbler_map.users|tojson }}
     - user: root
     - group: root
     - mode: 0644
@@ -73,7 +73,7 @@ cobbler-auth-config:
     - source: salt://cobbler/files/auth.conf
     - template: jinja
     - context:
-      cobbler_auth: {{ cobbler_map.auth }}
+      cobbler_auth: {{ cobbler_map.auth|tojson }}
     - user: root
     - group: root
     - mode: 0644
@@ -88,7 +88,7 @@ cobbler-mongodb-config:
     - source: salt://cobbler/files/mongodb.conf
     - template: jinja
     - context:
-      cobbler_mongodb: {{ cobbler_map.mongodb}}
+      cobbler_mongodb: {{ cobbler_map.mongodb|tojson }}
     - user: root
     - group: root
     - mode: 0644
@@ -103,7 +103,7 @@ cobbler-dnsmasq-config:
     - name: {{ cobbler_map.lookup.etc_dir }}/dnsmasq.template
     - template: jinja
     - context:
-      dnsmasq_settings: {{ cobbler_map.dnsmasq.settings }}
+      dnsmasq_settings: {{ cobbler_map.dnsmasq.settings|tojson }}
     - user: root
     - group: root
     - mode: 0644
@@ -118,7 +118,7 @@ cobbler-dhcp-config:
     - name: {{ cobbler_map.lookup.etc_dir }}/dhcp.template
     - template: jinja
     - context:
-      dhcpd_settings: {{ cobbler_map.dhcp.settings }}
+      dhcpd_settings: {{ cobbler_map.dhcp.settings|tojson }}
     - user: root
     - group: root
     - mode: 0644
@@ -133,7 +133,7 @@ cobbler-named-config:
     - name: {{ cobbler_map.lookup.etc_dir }}/named.template
     - template: jinja
     - context:
-      named_settings: {{ cobbler_map.named.settings }}
+      named_settings: {{ cobbler_map.named.settings|tojson }}
     - user: root
     - group: root
     - mode: 0644
@@ -151,7 +151,7 @@ cobbler-tftpd-config:
     - source: {{ cobbler_map.tftpd.template }}
     - name: {{ cobbler_map.lookup.etc_dir }}/tftpd.template
     - context:
-      tftpd_settings: {{ cobbler_map.tftpd.settings }}
+      tftpd_settings: {{ cobbler_map.tftpd.settings|tojson }}
     - template: jinja
     - user: root
     - group: root
