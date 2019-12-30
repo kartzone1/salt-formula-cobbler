@@ -1,5 +1,6 @@
 {% from "cobbler/map.jinja" import cobbler_map with context %}
 
+{% if cobbler_map.lookup.use_repo %}
 {% if grains['os_family'] == 'Debian' %}
 cobbler-repo:
   pkgrepo.managed:
@@ -39,12 +40,15 @@ cobbler-repo:
     - require:
       - file: cobbler-repo-key
 {% endif %}
+{% endif %}
 
 cobbler-deps:
   pkg.installed:
     - pkgs: {{ cobbler_map.lookup['pkgs']|json }}
+{% if cobbler_map.lookup.use_repo %}
     - require:
       - pkgrepo: cobbler-repo
+{% endif %}
 
 {% if cobbler_map.dnsmasq.manage == True %}
 dnsmasq:
@@ -61,7 +65,9 @@ cobbler:
     - refresh: True
     - require:
       - pkg: cobbler-deps
+{% if cobbler_map.lookup.use_repo %}
       - pkgrepo: cobbler-repo
+{% endif %}
 {% if cobbler_map.dnsmasq.manage == True %}
       - pkg: dnsmasq
 {% endif %}
