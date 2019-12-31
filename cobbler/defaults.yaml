@@ -46,6 +46,10 @@ cobbler:
     manage: True
     sources:
       - salt://cobbler/files/snippets
+  triggers:
+    manage: True
+    sources:
+      - salt://cobbler/files/triggers
   loaders:
     manage: True
     sync: True

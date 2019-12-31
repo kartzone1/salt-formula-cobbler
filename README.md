@@ -60,6 +60,10 @@ Imports kickstart files from sources based on pillar
 -----------
 Imports snippet files from sources based on pillar
 
+``cobbler.triggers``
+-----------
+Imports trigger files from sources based on pillar
+
 ``cobbler.loaders``
 -----------
 Imports loaders files from cobbler repository + from sources based on pillar
