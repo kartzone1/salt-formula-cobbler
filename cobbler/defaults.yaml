@@ -45,6 +45,11 @@ cobbler:
     manage: True
     sources:
       - salt://cobbler/files/snippets
+  loaders:
+    manage: True
+    sync: True
+    sources:
+      - salt://cobbler/files/loaders
   mongodb:
     connection:
       host: localhost
