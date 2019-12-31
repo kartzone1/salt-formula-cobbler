@@ -63,3 +63,7 @@ Imports snippet files from sources based on pillar
 ``cobbler.loaders``
 -----------
 Imports loaders files from cobbler repository + from sources based on pillar
+
+``cobbler.images``
+-----------
+Imports images files from sources based on pillar

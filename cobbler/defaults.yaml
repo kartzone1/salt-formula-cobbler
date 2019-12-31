@@ -51,6 +51,10 @@ cobbler:
     sync: True
     sources:
       - salt://cobbler/files/loaders
+  images:
+    manage: True
+    sources:
+      - salt://cobbler/files/images
   mongodb:
     connection:
       host: localhost
