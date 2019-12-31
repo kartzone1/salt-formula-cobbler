@@ -198,6 +198,7 @@ cobbler:
       profile: centos7-x86_64
       mac: '52:54:00:c4:d2:45'
       interface: eno1
+      ksmeta: 'filename=grub/rhel7-x86_64/shimx64.efi'
     srv-02.domain:
       profile: fedora30-x86_64
       mac: '52:54:00:c4:d2:46'
