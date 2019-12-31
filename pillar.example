@@ -173,3 +173,32 @@ cobbler:
     always_write_dhcp_entries: 0
     proxy_url_ext: ""
     proxy_url_int: ""
+  distros:
+    centos7-x86_64:
+      arch: x86_64
+      initrd: /var/www/cobbler/ks_mirror/centos7-x86_64/images/pxeboot/initrd.img
+      kernel: /var/www/cobbler/ks_mirror/centos7-x86_64/images/pxeboot/vmlinuz
+      osversion: rhel7
+      breed: redhat
+    fedora30-x86_64:
+      arch: x86_64
+      initrd: /var/www/cobbler/ks_mirror/fedora30-x86_64/images/pxeboot/initrd.img
+      kernel: /var/www/cobbler/ks_mirror/fedora30-x86_64/images/pxeboot/vmlinuz
+      osversion: fedora30
+      breed: redhat
+  profiles:
+    centos7-x86_64:
+      distro: centos7-x86_64
+      kickstart: /var/lib/cobbler/kickstarts/centos7-x86_64.ks
+    fedora30-x86_64:
+      distro: fedora30-x86_64
+      kickstart: /var/lib/cobbler/kickstarts/fedora30-x86_64.ks
+  systems:
+    srv-01.domain:
+      profile: centos7-x86_64
+      mac: '52:54:00:c4:d2:45'
+      interface: eno1
+    srv-02.domain:
+      profile: fedora30-x86_64
+      mac: '52:54:00:c4:d2:46'
+      interface: eno1

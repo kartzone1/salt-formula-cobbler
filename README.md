@@ -67,3 +67,15 @@ Imports loaders files from cobbler repository + from sources based on pillar
 ``cobbler.images``
 -----------
 Imports images files from sources based on pillar
+
+``cobbler.distros``
+-----------
+Configures distros based on pillar.
+
+``cobbler.profiles``
+-----------
+Configures profiles based on pillar.
+
+``cobbler.systems``
+-----------
+Configures systems based on pillar.
