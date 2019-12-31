@@ -3,7 +3,7 @@ salt-formula-cobbler
 Formula to install/manage Cobbber
 
 
-Install and configure cron and set up cron tasks. Tested on CentOS 7.4.
+Install, configure and set up Cobbler. Tested on CentOS 7.
 
 .. note::
 
@@ -18,7 +18,7 @@ Available states
 
 ``cobbler``
 --------
-Includes cobbler.repo, cobbler.install and cobbler.config
+Includes cobbler.install and cobbler.config
 
 ``cobbler.repo``
 -----------
