@@ -7,6 +7,8 @@ triggers-from-{{ source }}:
   file.recurse:
     - source: {{ source }}
     - name: {{ cobbler_map.lookup.lib_dir }}/triggers/
+    - dir_mode: 2775
+    - file_mode: '0755'
 {% endfor %}
 {% endif %}
 {% endif %}
